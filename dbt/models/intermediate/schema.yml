@@ -1,0 +1,13 @@
+version: 2
+models:
+  - name: int_job_facts
+    description: One row per deduplicated posting with dimension names and optional pay information.
+    columns:
+      - name: job_id
+        data_tests: [not_null, unique]
+      - name: role
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Data Analyst','Business Intelligence Analyst','Data Scientist','Data Engineer','Analytics Engineer','Machine Learning Engineer','AI Engineer','Software Engineer','Cloud Engineer','Ambiguous','Other Technology']

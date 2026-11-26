@@ -1,0 +1,25 @@
+{
+  "source": "luke",
+  "revision": "ed776e5a0a8c40ea9d5efbd800772ae52e140f3e",
+  "processing_version": "1.0",
+  "total_records": 785741,
+  "valid_records": 204273,
+  "flagged_records": 132322,
+  "rejected_records": 579449,
+  "duplicate_records": 2019,
+  "rejection_reasons": {
+    "missing_title": 0,
+    "outside_us_or_unknown": 579449
+  },
+  "quality_flags": {
+    "ambiguous_role": 2567,
+    "missing_location": 784,
+    "unknown_state": 29156,
+    "unrecognized_skills": 108723,
+    "unsupported_currency": 25054
+  },
+  "state_coverage": 0.8572694384475678,
+  "skill_coverage": 0.8536370445433317,
+  "normalized_salary_coverage": 0.0,
+  "salary_source_coverage": 0.12264959147807102
+}

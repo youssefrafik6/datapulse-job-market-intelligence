@@ -1,0 +1,169 @@
+{
+  "source": "zalize",
+  "target": "normalized advertised annual USD midpoint",
+  "split": "Employer-disjoint training, validation and test groups",
+  "train_rows": 5902,
+  "validation_rows": 1656,
+  "test_rows": 2432,
+  "selected": "Ridge",
+  "validation": {
+    "Median baseline": {
+      "sample": 1656,
+      "mae": 43676.50084541063,
+      "rmse": 56577.228440430874,
+      "r2": -7.476542368878292e-05,
+      "median_absolute_error": 34975.0
+    },
+    "Ridge": {
+      "sample": 1656,
+      "mae": 40356.15587512764,
+      "rmse": 52702.53704744517,
+      "r2": 0.13221492612060737,
+      "median_absolute_error": 34978.49626129035
+    },
+    "Random forest": {
+      "sample": 1656,
+      "mae": 40686.23368742872,
+      "rmse": 53693.524019393546,
+      "r2": 0.09927348258683388,
+      "median_absolute_error": 34537.92734720628
+    }
+  },
+  "test": {
+    "sample": 2432,
+    "mae": 44737.740077656184,
+    "rmse": 68549.85662331112,
+    "r2": 0.0783180822359032,
+    "median_absolute_error": 31029.04760979688
+  },
+  "test_median_baseline": {
+    "sample": 2432,
+    "mae": 48723.116942845394,
+    "rmse": 72212.8882372739,
+    "r2": -0.02281572564187706,
+    "median_absolute_error": 35800.0
+  },
+  "interval_radius_usd": 80073.28951533584,
+  "interval_target": 0.9,
+  "test_interval_coverage": 0.8626644736842105,
+  "mae_by_segment": {
+    "role": {
+      "AI Engineer": {
+        "sample": 37,
+        "mae": 52557.78
+      },
+      "Analytics Engineer": {
+        "sample": 16,
+        "mae": 34802.38
+      },
+      "Cloud Engineer": {
+        "sample": 49,
+        "mae": 33784.39
+      },
+      "Data Analyst": {
+        "sample": 18,
+        "mae": 25991.37
+      },
+      "Data Engineer": {
+        "sample": 68,
+        "mae": 48586.56
+      },
+      "Data Scientist": {
+        "sample": 91,
+        "mae": 47270.92
+      },
+      "Machine Learning Engineer": {
+        "sample": 63,
+        "mae": 47562.71
+      },
+      "Other Technology": {
+        "sample": 1425,
+        "mae": 46457.28
+      },
+      "Software Engineer": {
+        "sample": 655,
+        "mae": 41253.18
+      }
+    },
+    "experience": {
+      "Senior": {
+        "sample": 1279,
+        "mae": 41268.54
+      },
+      "Unknown": {
+        "sample": 1148,
+        "mae": 48572.36
+      }
+    },
+    "state": {
+      "CA": {
+        "sample": 1020,
+        "mae": 35948.7
+      },
+      "CO": {
+        "sample": 100,
+        "mae": 23716.35
+      },
+      "DC": {
+        "sample": 79,
+        "mae": 39463.14
+      },
+      "GA": {
+        "sample": 15,
+        "mae": 33093.21
+      },
+      "IL": {
+        "sample": 21,
+        "mae": 28588.22
+      },
+      "MA": {
+        "sample": 144,
+        "mae": 39066.65
+      },
+      "NY": {
+        "sample": 253,
+        "mae": 74583.96
+      },
+      "OH": {
+        "sample": 25,
+        "mae": 29966.76
+      },
+      "Unknown": {
+        "sample": 519,
+        "mae": 48798.07
+      },
+      "VA": {
+        "sample": 91,
+        "mae": 31681.05
+      },
+      "WA": {
+        "sample": 116,
+        "mae": 90271.55
+      }
+    },
+    "band": {
+      "Under $100k": {
+        "sample": 101,
+        "mae": 99664.85
+      },
+      "$100k\u2013$150k": {
+        "sample": 509,
+        "mae": 44120.6
+      },
+      "$150k\u2013$200k": {
+        "sample": 927,
+        "mae": 20383.26
+      },
+      "Over $200k": {
+        "sample": 895,
+        "mae": 64115.5
+      }
+    }
+  },
+  "validation_permutation_mae_increase": {
+    "role": 796.0936377702703,
+    "experience": 3599.8699721409766,
+    "state": 2786.8410628444603,
+    "remote": -26.89258130711387
+  }
+}

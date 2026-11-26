@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.DS_Store
+data/raw/
+data/processed/
+results/*.joblib
+dbt/target/
+dbt/logs/
+dbt/.user.yml

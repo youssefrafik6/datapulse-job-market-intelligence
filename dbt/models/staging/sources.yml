@@ -1,0 +1,46 @@
+version: 2
+sources:
+  - name: operational
+    schema: public
+    description: Normalized DataPulse ingestion tables.
+    tables:
+      - name: job_postings
+        columns:
+          - name: job_id
+            data_tests: [unique, not_null]
+          - name: source
+            data_tests:
+              - relationships:
+                  arguments:
+                    to: source('operational', 'data_sources')
+                    field: source
+          - name: remote
+            data_tests:
+              - accepted_values:
+                  arguments:
+                    values: ['Remote', 'Hybrid', 'On-site', 'Unspecified']
+          - name: experience
+            data_tests:
+              - accepted_values:
+                  arguments:
+                    values: ['Entry', 'Mid', 'Senior', 'Executive', 'Unknown']
+      - name: companies
+      - name: locations
+      - name: job_titles
+      - name: skills
+      - name: job_skills
+        columns:
+          - name: skill
+            data_tests:
+              - relationships:
+                  arguments:
+                    to: source('operational', 'skills')
+                    field: skill
+          - name: job_id
+            data_tests:
+              - relationships:
+                  arguments:
+                    to: source('operational', 'job_postings')
+                    field: job_id
+      - name: salary_records
+      - name: data_sources

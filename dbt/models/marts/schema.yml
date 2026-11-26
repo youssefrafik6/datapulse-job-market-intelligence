@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: mart_salary_analysis
+    description: Advertised annual USD percentiles by source, role, seniority, state and arrangement.
+  - name: mart_skill_demand
+    description: Role-level skill counts, denominator, share and rank.
+  - name: mart_location_analysis
+    description: State and NYC posting counts with remote and salary coverage.
+  - name: mart_remote_work
+    description: Work arrangement counts and within-role shares.
+  - name: mart_experience_levels
+    description: Experience signals and salary coverage by role.
+  - name: mart_job_market_trends
+    description: Eligible dated posting months and adjacent-month changes.
+  - name: mart_skill_cooccurrence
+    description: Within-role skill pairs with joint support of at least five and Jaccard overlap.

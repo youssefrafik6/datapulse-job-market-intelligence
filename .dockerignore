@@ -1,0 +1,9 @@
+.git
+.venv
+data/raw
+data/processed
+results/*.joblib
+__pycache__
+dbt/target
+dbt/logs
+.env
