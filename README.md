@@ -1,4 +1,4 @@
-# DataPulse — U.S. Tech & Data Job Market Intelligence
+# DataPulse | U.S. Tech & Data Job Market Intelligence
 
 DataPulse ingests and normalizes two historical sources of U.S. tech and data job postings. The dashboard and API support analysis by role, skill, geography, experience, work arrangement, and advertised pay.
 
