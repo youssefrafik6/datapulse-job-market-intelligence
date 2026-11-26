@@ -313,7 +313,7 @@ elif page == PAGES[8]:
     explorer = Analytics(replace(filters, title=title, company=company, location=location, skill=skill,
                                  salary_floor=floor or None))
     table(explorer.jobs(100, (page_number - 1) * 100).drop(columns="job_id"))
-    st.caption("Up to 100 historical observations per page. Bulk export is disabled for this portfolio build.")
+    st.caption("Up to 100 historical postings per page.")
 elif page == PAGES[9]:
     st.code("Pinned CSV / Parquet → immutable raw file → batch validation and rules\n"
             "→ deterministic deduplication → PostgreSQL / DuckDB → dbt and SQL → dashboard + API", language=None)

@@ -1,6 +1,6 @@
 # DataPulse — U.S. Tech & Data Job Market Intelligence
 
-Explore U.S. tech and data postings by role, skill, geography, experience, work arrangement and advertised pay. DataPulse is a portfolio project by **Youssef Rafik** that turns two historical posting sources into a reproducible local analytics platform.
+DataPulse ingests and normalizes two historical sources of U.S. tech and data job postings. The dashboard and API support analysis by role, skill, geography, experience, work arrangement, and advertised pay.
 
 | Verified snapshot | U.S. postings retained | Best use |
 | --- | ---: | --- |
@@ -63,7 +63,7 @@ flowchart LR
     ML --> API
 ```
 
-The normalized schema separates sources, ingestion runs, employers, locations, titles, postings, salaries and the job-skill bridge. See the [ER diagram and ingestion contract](docs/architecture.md). The pipeline reads bounded batches, keeps raw data separately, applies source-specific schema and quality rules, and bulk-loads the selected source transactionally into PostgreSQL. The DuckDB path provides an atomic single-source snapshot.
+The normalized schema separates sources, ingestion runs, employers, locations, titles, postings, salaries and the job-skill bridge. The pipeline reads bounded batches, keeps raw data separately, applies source-specific schema and quality rules, and bulk-loads the selected source transactionally into PostgreSQL. The DuckDB path provides an atomic single-source snapshot.
 
 The dbt project contains eight staging views, one intermediate posting fact and seven marts for pay, skill demand, geography, remote work, experience, trends and co-occurrence. [Fifteen documented SQL queries](sql/analysis_queries.sql) cover windows, joins, percentiles, quality and coverage. Use `make transform` and `make docs` with the PostgreSQL environment configured. The Compose setup runs the dbt build automatically. The dashboard and API share a query layer so interactive cohorts behave consistently on either database.
 
@@ -79,9 +79,9 @@ The dbt project contains eight staging views, one intermediate posting fact and 
 | At least one tracked skill | 85.4% | 100.0% |
 | Comparable advertised USD midpoint | 0.0% | 74.7% |
 
-The 2023 file lacks currency. Its reported salary figures stay in the source units. DataForge supplies parsed salary ranges. The model and pay charts use eligible advertised USD values, with full-time hourly and monthly normalization documented in the [architecture](docs/architecture.md). Sources, file inspections and usage restrictions are detailed in the [source audit](docs/data_sources.md). Posted dates, collection dates and ingestion dates are tracked independently.
+The 2023 file lacks currency. Its reported salary figures stay in the source units. DataForge supplies parsed salary ranges. The model and pay charts use eligible advertised USD values, with hourly and monthly figures normalized for eligible full-time postings. Posted dates, collection dates and ingestion dates are tracked independently.
 
-Source credits go to [Luke Barousse](https://huggingface.co/datasets/lukebarousse/data_jobs) under the upstream card’s Apache-2.0 designation and to [DataForge (data.zalize.com)](https://data.zalize.com/datasets/tech-job-postings-salary-dataset) for the CC BY-NC 4.0 curated Zalize layer. The MIT license in this repository covers project code. The source records and serialized model stay local.
+Source credits go to [Luke Barousse](https://huggingface.co/datasets/lukebarousse/data_jobs) under the upstream card’s Apache-2.0 designation and to [DataForge (data.zalize.com)](https://data.zalize.com/datasets/tech-job-postings-salary-dataset) for the CC BY-NC 4.0 curated Zalize layer. The [MIT license](LICENSE) covers project code. The source records and serialized model stay local. Underlying job listings may carry separate rights. Commercial use of the Zalize data requires a separate rights review.
 
 ## Salary prediction
 
@@ -94,7 +94,7 @@ Target is the normalized advertised annual USD midpoint. Features are role famil
 | R² | **0.078** | −0.023 |
 | Median absolute error | **$31,029** | $35,800 |
 
-The estimated interval has 86.3% empirical test coverage. Large errors and sample selection make this an exploratory baseline. Results by role, state, experience and salary band are in [model metrics](results/model_metrics.json). Role and skill rules and their evaluation limits are in [methodology](docs/skill_extraction.md).
+The estimated interval has 86.3% empirical test coverage. Large errors and sample selection make this an exploratory baseline. Results by role, state, experience and salary band are in [model metrics](results/model_metrics.json). Role and skill extraction rules are implemented in [the rules module](src/datapulse/rules.py).
 
 ## API
 
@@ -121,8 +121,6 @@ make validate
 make sql
 ```
 
-[Verification results](docs/verification.md) record the real-data checks and limitations. For a hosted deployment, start from the Docker image, provision PostgreSQL and run the ingestion, dbt and training setup as jobs. Check data rights and set service authentication before extending access outside the local machine. No hosted instance is configured.
+For a hosted deployment, start from the Docker image, provision PostgreSQL and run the ingestion, dbt and training setup as jobs. Check data rights and set service authentication before extending access outside the local machine. No hosted instance is configured.
 
 Both datasets omit full descriptions and verified company size. Seniority usually reflects title evidence. Provider tags are mention signals. There is no scheduled live collection, and the Zalize cross-section cannot support monthly hiring trends. The 2023 counts reflect observed posting dates and changes in collection coverage.
-
-The platform grew out of [Youssef Rafik’s DSC 101 project](docs/original_project.md). [Resume material and interview notes](docs/resume_bullets.md) summarize the engineering and analysis work.
