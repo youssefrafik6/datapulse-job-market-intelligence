@@ -1,6 +1,6 @@
 # DataPulse — U.S. Tech & Data Job Market Intelligence
 
-Explore U.S. tech and data postings by role, skill, geography, experience, work arrangement and advertised pay. DataPulse is a portfolio project by **Youssef Rafik** that turns two historical posting sources into a reproducible local analytics platform.
+DataPulse ingests and normalizes two historical sources of U.S. tech and data job postings. The dashboard and API support analysis by role, skill, geography, experience, work arrangement, and advertised pay.
 
 | Verified snapshot | U.S. postings retained | Best use |
 | --- | ---: | --- |
@@ -81,7 +81,7 @@ The dbt project contains eight staging views, one intermediate posting fact and 
 
 The 2023 file lacks currency. Its reported salary figures stay in the source units. DataForge supplies parsed salary ranges. The model and pay charts use eligible advertised USD values, with full-time hourly and monthly normalization documented in the [architecture](docs/architecture.md). Sources, file inspections and usage restrictions are detailed in the [source audit](docs/data_sources.md). Posted dates, collection dates and ingestion dates are tracked independently.
 
-Source credits go to [Luke Barousse](https://huggingface.co/datasets/lukebarousse/data_jobs) under the upstream card’s Apache-2.0 designation and to [DataForge (data.zalize.com)](https://data.zalize.com/datasets/tech-job-postings-salary-dataset) for the CC BY-NC 4.0 curated Zalize layer. The MIT license in this repository covers project code. The source records and serialized model stay local.
+Source credits go to [Luke Barousse](https://huggingface.co/datasets/lukebarousse/data_jobs) under the upstream card’s Apache-2.0 designation and to [DataForge (data.zalize.com)](https://data.zalize.com/datasets/tech-job-postings-salary-dataset) for the CC BY-NC 4.0 curated Zalize layer. The [MIT license](LICENSE) covers project code. The source records and serialized model stay local.
 
 ## Salary prediction
 
@@ -125,4 +125,4 @@ make sql
 
 Both datasets omit full descriptions and verified company size. Seniority usually reflects title evidence. Provider tags are mention signals. There is no scheduled live collection, and the Zalize cross-section cannot support monthly hiring trends. The 2023 counts reflect observed posting dates and changes in collection coverage.
 
-The platform grew out of [Youssef Rafik’s DSC 101 project](docs/original_project.md). [Resume material and interview notes](docs/resume_bullets.md) summarize the engineering and analysis work.
+[Research background](docs/original_project.md)
