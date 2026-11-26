@@ -70,7 +70,7 @@ class Analytics:
             select count(*) as postings, count(distinct company_id) as companies,
             count(distinct location_id) as locations, count(distinct state) as states,
             count(*) filter(where remote='Remote') as remote_jobs,
-            count(annual_usd) as salary_jobs, min(posted_date) as first_posted,
+            count(annual_usd) filter(where salary_origin='advertised') as salary_jobs, min(posted_date) as first_posted,
             max(posted_date) as last_posted, max(last_observed_at) as last_observed,
             max(ingested_at) as last_ingested from cohort""")
 
@@ -88,12 +88,14 @@ class Analytics:
                             percentile_cont(0.5) within group(order by annual_usd) as median,
                             percentile_cont(0.9) within group(order by annual_usd) as p90,
                             min(annual_low) as lowest_advertised, max(annual_high) as highest_advertised
-                            from cohort where annual_usd is not null and {key} is not null
+                            from cohort where salary_origin='advertised' and annual_usd is not null
+                            and {key} is not null
                             group by 1 order by 2 desc, 1 limit :lim""", lim=limit)
 
     def salary_sample(self):
-        return self.run("""select role, experience, annual_usd from cohort where annual_usd is not null
-                           order by job_id limit 10000""")
+        return self.run("""select role, experience, annual_usd from cohort
+                           where salary_origin='advertised' and annual_usd is not null
+                           order by md5(job_id), job_id limit 10000""")
 
     def skill_demand(self, group="role", limit=25, skill=None):
         if group not in {*GROUPS, "salary_band"}:
