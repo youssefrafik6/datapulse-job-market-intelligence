@@ -9,6 +9,19 @@ DataPulse ingests and normalizes two historical sources of U.S. tech and data jo
 
 The 2023 cohort includes 1,600 Connecticut and 7,959 NYC observations. SQL appears in 113,929 and Python in 106,066 of its postings. The published search process shapes these counts. The 2026 snapshot includes 9,990 comparable advertised USD midpoints, with a median of $184,500 in this salary-rich sample.
 
+## Try the aggregate dashboard
+
+![DataPulse aggregate dashboard on the 2023 sample](screenshots/aggregate-demo.png)
+
+The bundled Streamlit demo shows both cohorts with separately labeled posting counts, skill mentions, state totals, work arrangements and advertised pay. It uses a compact, attributed aggregate snapshot and starts without PostgreSQL, Docker, a model or a dataset download.
+
+```bash
+python -m pip install -r demo/requirements.txt
+streamlit run demo/app.py
+```
+
+The local demo and the full stack have different entry points. For the interactive row-level explorer, APIs and rebuildable pipeline, use the full stack below.
+
 ## Quick start
 
 Run the full PostgreSQL, dbt, API and dashboard stack. Docker Compose downloads about 225 MiB of pinned data on the first run and preserves it in local Docker volumes. The services bind to loopback.
@@ -95,6 +108,14 @@ Target is the normalized advertised annual USD midpoint. Features are role famil
 | Median absolute error | **$31,029** | $35,800 |
 
 The estimated interval has 86.3% empirical test coverage. Large errors and sample selection make this an exploratory baseline. Results by role, state, experience and salary band are in [model metrics](results/model_metrics.json). Role and skill extraction rules are implemented in [the rules module](src/datapulse/rules.py).
+
+### Skill-tag experiment
+
+A Ridge variant with binary skill tags selected by employer-disjoint validation MAE reached **$42,960 MAE** and **0.143 R²** on the established 2,432-posting holdout. The same test cohort was used in earlier experiments, so this result needs a new sample for independent confirmation. The modest improvement still leaves large errors. The serving model remains the documented four-input Ridge baseline.
+
+```bash
+python scripts/benchmark_salary_skills.py --database data/processed/datapulse.duckdb
+```
 
 ## API
 
