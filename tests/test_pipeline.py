@@ -57,3 +57,16 @@ def test_filter_bindings_and_grain(snapshot):
     assert exact.summary().postings.item() == 3
     assert exact.skills().share.tolist() == [1, 1, 1]
     assert query("select count(*) n from job_skills", path=path).n.item() == 9
+
+
+
+def test_advertised_salary_metrics_exclude_estimates(snapshot):
+    import duckdb
+
+    _, path, _ = snapshot
+    with duckdb.connect(str(path)) as connection:
+        connection.execute("update salary_records set salary_origin='estimated'")
+    cohort = Analytics(Filters(source="zalize"), path)
+    assert cohort.summary().salary_jobs.item() == 0
+    assert cohort.salary("role").empty
+    assert cohort.salary_sample().empty
