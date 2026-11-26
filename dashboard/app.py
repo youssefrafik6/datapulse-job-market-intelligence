@@ -174,7 +174,7 @@ elif page == PAGES[1]:
         with right:
             chart(px.histogram(sample, x="annual_usd", nbins=35, color_discrete_sequence=PALETTE,
                                labels={"annual_usd": "Annual USD"}))
-        st.caption(f"Distribution charts show {len(sample):,} observations, capped at 10,000.")
+        st.caption(f"Distribution charts show {len(sample):,} observations, with a reproducible sample capped at 10,000.")
 elif page == PAGES[2]:
     st.write("Skill mentions come from source-provided tags and supported text matching. The denominator includes all "
              "postings in each displayed group.")
