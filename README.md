@@ -2,7 +2,7 @@
 
 DataPulse ingests and normalizes two historical sources of U.S. tech and data job postings. The dashboard and API support analysis by role, skill, geography, experience, work arrangement, and advertised pay.
 
-[Source code](https://github.com/youssefrafik6/datapulse-job-market-intelligence) · [Architecture](#architecture) · [Data sources](#data-quality-and-source-rights)
+[Live aggregate demo](https://datapulse-job-market-intelligence-ck3jjtkhhz3g7f5fhkuq26.streamlit.app/) · [Source code](https://github.com/youssefrafik6/datapulse-job-market-intelligence) · [Architecture](#architecture) · [Data sources](#data-quality-and-source-rights)
 
 | Verified snapshot | U.S. postings retained | Best use |
 | --- | ---: | --- |
