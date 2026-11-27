@@ -1,0 +1,809 @@
+{
+  "luke": {
+    "provenance": {
+      "source": "luke",
+      "revision": "ed776e5a0a8c40ea9d5efbd800772ae52e140f3e",
+      "url": "https://huggingface.co/datasets/lukebarousse/data_jobs",
+      "license": "Apache-2.0"
+    },
+    "totals": {
+      "postings": 204273,
+      "remote_jobs": 23630,
+      "salary_jobs": 0
+    },
+    "skills": [
+      {
+        "skill": "SQL",
+        "mentions": 113929,
+        "share": 0.5577291174
+      },
+      {
+        "skill": "Python",
+        "mentions": 106066,
+        "share": 0.5192365119
+      },
+      {
+        "skill": "R",
+        "mentions": 50729,
+        "share": 0.2483392323
+      },
+      {
+        "skill": "Tableau",
+        "mentions": 49122,
+        "share": 0.2404723091
+      },
+      {
+        "skill": "Excel",
+        "mentions": 45050,
+        "share": 0.2205382013
+      },
+      {
+        "skill": "AWS",
+        "mentions": 37800,
+        "share": 0.1850464819
+      },
+      {
+        "skill": "Spark",
+        "mentions": 29868,
+        "share": 0.1462160932
+      },
+      {
+        "skill": "Azure",
+        "mentions": 27530,
+        "share": 0.1347706256
+      },
+      {
+        "skill": "Power BI",
+        "mentions": 26356,
+        "share": 0.1290234147
+      },
+      {
+        "skill": "Java",
+        "mentions": 22645,
+        "share": 0.1108565498
+      },
+      {
+        "skill": "Snowflake",
+        "mentions": 19121,
+        "share": 0.0936051265
+      },
+      {
+        "skill": "SAS",
+        "mentions": 18513,
+        "share": 0.0906287175
+      }
+    ],
+    "states": [
+      {
+        "segment": "CA",
+        "postings": 29026
+      },
+      {
+        "segment": "TX",
+        "postings": 20505
+      },
+      {
+        "segment": "FL",
+        "postings": 15568
+      },
+      {
+        "segment": "IL",
+        "postings": 11333
+      },
+      {
+        "segment": "GA",
+        "postings": 11131
+      },
+      {
+        "segment": "VA",
+        "postings": 10976
+      },
+      {
+        "segment": "NY",
+        "postings": 9994
+      },
+      {
+        "segment": "NC",
+        "postings": 6482
+      },
+      {
+        "segment": "MA",
+        "postings": 5729
+      },
+      {
+        "segment": "MD",
+        "postings": 5665
+      },
+      {
+        "segment": "NJ",
+        "postings": 5599
+      },
+      {
+        "segment": "DC",
+        "postings": 4631
+      },
+      {
+        "segment": "PA",
+        "postings": 4413
+      },
+      {
+        "segment": "MO",
+        "postings": 3985
+      },
+      {
+        "segment": "IN",
+        "postings": 2403
+      },
+      {
+        "segment": "SC",
+        "postings": 2377
+      },
+      {
+        "segment": "OH",
+        "postings": 2372
+      },
+      {
+        "segment": "WI",
+        "postings": 1901
+      },
+      {
+        "segment": "AL",
+        "postings": 1879
+      },
+      {
+        "segment": "CT",
+        "postings": 1600
+      },
+      {
+        "segment": "MI",
+        "postings": 1518
+      },
+      {
+        "segment": "MN",
+        "postings": 1405
+      },
+      {
+        "segment": "OR",
+        "postings": 1386
+      },
+      {
+        "segment": "CO",
+        "postings": 1385
+      },
+      {
+        "segment": "IA",
+        "postings": 1262
+      },
+      {
+        "segment": "AZ",
+        "postings": 1162
+      },
+      {
+        "segment": "TN",
+        "postings": 1128
+      },
+      {
+        "segment": "WA",
+        "postings": 917
+      },
+      {
+        "segment": "NV",
+        "postings": 870
+      },
+      {
+        "segment": "UT",
+        "postings": 812
+      },
+      {
+        "segment": "AR",
+        "postings": 736
+      },
+      {
+        "segment": "RI",
+        "postings": 650
+      },
+      {
+        "segment": "DE",
+        "postings": 638
+      },
+      {
+        "segment": "KY",
+        "postings": 428
+      },
+      {
+        "segment": "ID",
+        "postings": 400
+      },
+      {
+        "segment": "KS",
+        "postings": 385
+      },
+      {
+        "segment": "LA",
+        "postings": 379
+      },
+      {
+        "segment": "OK",
+        "postings": 378
+      },
+      {
+        "segment": "NH",
+        "postings": 359
+      },
+      {
+        "segment": "MS",
+        "postings": 282
+      },
+      {
+        "segment": "WV",
+        "postings": 215
+      },
+      {
+        "segment": "NE",
+        "postings": 209
+      },
+      {
+        "segment": "NM",
+        "postings": 193
+      },
+      {
+        "segment": "ME",
+        "postings": 126
+      },
+      {
+        "segment": "VT",
+        "postings": 116
+      },
+      {
+        "segment": "HI",
+        "postings": 78
+      },
+      {
+        "segment": "SD",
+        "postings": 44
+      },
+      {
+        "segment": "ND",
+        "postings": 28
+      },
+      {
+        "segment": "AK",
+        "postings": 23
+      },
+      {
+        "segment": "WY",
+        "postings": 23
+      },
+      {
+        "segment": "MT",
+        "postings": 13
+      }
+    ],
+    "work_arrangement": [
+      {
+        "segment": "Unspecified",
+        "postings": 180643
+      },
+      {
+        "segment": "Remote",
+        "postings": 23630
+      }
+    ],
+    "remote_months": [
+      {
+        "month": "2023-01",
+        "segment": "Remote",
+        "postings": 2426
+      },
+      {
+        "month": "2023-01",
+        "segment": "Unspecified",
+        "postings": 19886
+      },
+      {
+        "month": "2023-02",
+        "segment": "Remote",
+        "postings": 1807
+      },
+      {
+        "month": "2023-02",
+        "segment": "Unspecified",
+        "postings": 16012
+      },
+      {
+        "month": "2023-03",
+        "segment": "Remote",
+        "postings": 1988
+      },
+      {
+        "month": "2023-03",
+        "segment": "Unspecified",
+        "postings": 15747
+      },
+      {
+        "month": "2023-04",
+        "segment": "Remote",
+        "postings": 1746
+      },
+      {
+        "month": "2023-04",
+        "segment": "Unspecified",
+        "postings": 15349
+      },
+      {
+        "month": "2023-05",
+        "segment": "Remote",
+        "postings": 1733
+      },
+      {
+        "month": "2023-05",
+        "segment": "Unspecified",
+        "postings": 13387
+      },
+      {
+        "month": "2023-06",
+        "segment": "Remote",
+        "postings": 1884
+      },
+      {
+        "month": "2023-06",
+        "segment": "Unspecified",
+        "postings": 14626
+      },
+      {
+        "month": "2023-07",
+        "segment": "Remote",
+        "postings": 1788
+      },
+      {
+        "month": "2023-07",
+        "segment": "Unspecified",
+        "postings": 14244
+      },
+      {
+        "month": "2023-08",
+        "segment": "Remote",
+        "postings": 1675
+      },
+      {
+        "month": "2023-08",
+        "segment": "Unspecified",
+        "postings": 19158
+      },
+      {
+        "month": "2023-09",
+        "segment": "Remote",
+        "postings": 2114
+      },
+      {
+        "month": "2023-09",
+        "segment": "Unspecified",
+        "postings": 14097
+      },
+      {
+        "month": "2023-10",
+        "segment": "Remote",
+        "postings": 2425
+      },
+      {
+        "month": "2023-10",
+        "segment": "Unspecified",
+        "postings": 14460
+      },
+      {
+        "month": "2023-11",
+        "segment": "Remote",
+        "postings": 1994
+      },
+      {
+        "month": "2023-11",
+        "segment": "Unspecified",
+        "postings": 12662
+      },
+      {
+        "month": "2023-12",
+        "segment": "Remote",
+        "postings": 2050
+      },
+      {
+        "month": "2023-12",
+        "segment": "Unspecified",
+        "postings": 11015
+      }
+    ],
+    "salary_by_role": []
+  },
+  "zalize": {
+    "provenance": {
+      "source": "zalize",
+      "revision": "2314a3ac6897d6a454d53a1120ec3a540e82907d",
+      "url": "https://huggingface.co/datasets/zalizedata/tech-job-postings-salary-dataset",
+      "license": "CC BY-NC 4.0"
+    },
+    "totals": {
+      "postings": 13371,
+      "remote_jobs": 3084,
+      "salary_jobs": 9990
+    },
+    "skills": [
+      {
+        "skill": "Python",
+        "mentions": 13371,
+        "share": 1.0
+      },
+      {
+        "skill": "SQL",
+        "mentions": 4277,
+        "share": 0.3198713634
+      },
+      {
+        "skill": "AWS",
+        "mentions": 3602,
+        "share": 0.2693889761
+      },
+      {
+        "skill": "Machine Learning",
+        "mentions": 3457,
+        "share": 0.2585446115
+      },
+      {
+        "skill": "LLM",
+        "mentions": 2604,
+        "share": 0.1947498317
+      },
+      {
+        "skill": "C++",
+        "mentions": 2427,
+        "share": 0.181512228
+      },
+      {
+        "skill": "Kubernetes",
+        "mentions": 2354,
+        "share": 0.1760526513
+      },
+      {
+        "skill": "Google Cloud",
+        "mentions": 1925,
+        "share": 0.1439682896
+      },
+      {
+        "skill": "Linux",
+        "mentions": 1890,
+        "share": 0.1413506843
+      },
+      {
+        "skill": "Azure",
+        "mentions": 1867,
+        "share": 0.1396305437
+      },
+      {
+        "skill": "Java",
+        "mentions": 1854,
+        "share": 0.1386582903
+      },
+      {
+        "skill": "Docker",
+        "mentions": 1659,
+        "share": 0.1240744896
+      }
+    ],
+    "states": [
+      {
+        "segment": "CA",
+        "postings": 3779
+      },
+      {
+        "segment": "NY",
+        "postings": 1432
+      },
+      {
+        "segment": "TX",
+        "postings": 652
+      },
+      {
+        "segment": "WA",
+        "postings": 598
+      },
+      {
+        "segment": "MA",
+        "postings": 471
+      },
+      {
+        "segment": "VA",
+        "postings": 422
+      },
+      {
+        "segment": "MD",
+        "postings": 262
+      },
+      {
+        "segment": "DC",
+        "postings": 227
+      },
+      {
+        "segment": "CO",
+        "postings": 221
+      },
+      {
+        "segment": "IL",
+        "postings": 185
+      },
+      {
+        "segment": "FL",
+        "postings": 121
+      },
+      {
+        "segment": "NC",
+        "postings": 110
+      },
+      {
+        "segment": "PA",
+        "postings": 106
+      },
+      {
+        "segment": "GA",
+        "postings": 93
+      },
+      {
+        "segment": "UT",
+        "postings": 71
+      },
+      {
+        "segment": "AZ",
+        "postings": 67
+      },
+      {
+        "segment": "OH",
+        "postings": 67
+      },
+      {
+        "segment": "MI",
+        "postings": 66
+      },
+      {
+        "segment": "NJ",
+        "postings": 61
+      },
+      {
+        "segment": "CT",
+        "postings": 46
+      },
+      {
+        "segment": "NH",
+        "postings": 34
+      },
+      {
+        "segment": "MO",
+        "postings": 22
+      },
+      {
+        "segment": "NV",
+        "postings": 21
+      },
+      {
+        "segment": "MN",
+        "postings": 20
+      },
+      {
+        "segment": "SC",
+        "postings": 19
+      },
+      {
+        "segment": "AL",
+        "postings": 17
+      },
+      {
+        "segment": "TN",
+        "postings": 17
+      },
+      {
+        "segment": "OK",
+        "postings": 16
+      },
+      {
+        "segment": "IN",
+        "postings": 13
+      },
+      {
+        "segment": "HI",
+        "postings": 12
+      },
+      {
+        "segment": "KY",
+        "postings": 10
+      },
+      {
+        "segment": "MS",
+        "postings": 10
+      },
+      {
+        "segment": "OR",
+        "postings": 10
+      },
+      {
+        "segment": "WV",
+        "postings": 10
+      },
+      {
+        "segment": "AR",
+        "postings": 8
+      },
+      {
+        "segment": "IA",
+        "postings": 6
+      },
+      {
+        "segment": "DE",
+        "postings": 5
+      },
+      {
+        "segment": "MT",
+        "postings": 5
+      },
+      {
+        "segment": "NE",
+        "postings": 5
+      },
+      {
+        "segment": "KS",
+        "postings": 4
+      },
+      {
+        "segment": "NM",
+        "postings": 4
+      },
+      {
+        "segment": "RI",
+        "postings": 4
+      },
+      {
+        "segment": "WI",
+        "postings": 4
+      },
+      {
+        "segment": "LA",
+        "postings": 2
+      },
+      {
+        "segment": "ND",
+        "postings": 2
+      },
+      {
+        "segment": "SD",
+        "postings": 2
+      },
+      {
+        "segment": "ID",
+        "postings": 1
+      },
+      {
+        "segment": "ME",
+        "postings": 1
+      },
+      {
+        "segment": "WY",
+        "postings": 1
+      }
+    ],
+    "work_arrangement": [
+      {
+        "segment": "Unspecified",
+        "postings": 10152
+      },
+      {
+        "segment": "Remote",
+        "postings": 3084
+      },
+      {
+        "segment": "Hybrid",
+        "postings": 112
+      },
+      {
+        "segment": "On-site",
+        "postings": 23
+      }
+    ],
+    "remote_months": [],
+    "salary_by_role": [
+      {
+        "segment": "Other Technology",
+        "sample": 5822,
+        "p10": 110000.0,
+        "median": 173350.0,
+        "p90": 260000.0,
+        "lowest_advertised": 0.01,
+        "highest_advertised": 6000000.0
+      },
+      {
+        "segment": "Software Engineer",
+        "sample": 2496,
+        "p10": 137500.0,
+        "median": 197750.0,
+        "p90": 270000.0,
+        "lowest_advertised": 14200.0,
+        "highest_advertised": 625000.0
+      },
+      {
+        "segment": "Data Scientist",
+        "sample": 401,
+        "p10": 122500.0,
+        "median": 190000.0,
+        "p90": 281500.0,
+        "lowest_advertised": 17100.0,
+        "highest_advertised": 999999.0
+      },
+      {
+        "segment": "Cloud Engineer",
+        "sample": 331,
+        "p10": 132500.0,
+        "median": 180950.0,
+        "p90": 240000.0,
+        "lowest_advertised": 45000.0,
+        "highest_advertised": 500000.0
+      },
+      {
+        "segment": "Machine Learning Engineer",
+        "sample": 316,
+        "p10": 164325.0,
+        "median": 212500.0,
+        "p90": 293975.0,
+        "lowest_advertised": 50000.0,
+        "highest_advertised": 999000.0
+      },
+      {
+        "segment": "Data Engineer",
+        "sample": 274,
+        "p10": 131810.0,
+        "median": 175000.0,
+        "p90": 250000.0,
+        "lowest_advertised": 24000.0,
+        "highest_advertised": 500000.0
+      },
+      {
+        "segment": "AI Engineer",
+        "sample": 163,
+        "p10": 150000.0,
+        "median": 215000.0,
+        "p90": 285000.0,
+        "lowest_advertised": 50000.0,
+        "highest_advertised": 400000.0
+      },
+      {
+        "segment": "Data Analyst",
+        "sample": 94,
+        "p10": 93696.75,
+        "median": 130250.0,
+        "p90": 200000.0,
+        "lowest_advertised": 50000.0,
+        "highest_advertised": 999000.0
+      },
+      {
+        "segment": "Analytics Engineer",
+        "sample": 58,
+        "p10": 130000.0,
+        "median": 173712.5,
+        "p90": 218750.0000000001,
+        "lowest_advertised": 84800.0,
+        "highest_advertised": 335000.0
+      },
+      {
+        "segment": "Ambiguous",
+        "sample": 22,
+        "p10": 141690.0,
+        "median": 207425.0,
+        "p90": 237650.0,
+        "lowest_advertised": 115000.0,
+        "highest_advertised": 310000.0
+      },
+      {
+        "segment": "Business Intelligence Analyst",
+        "sample": 13,
+        "p10": 138000.0,
+        "median": 146150.0,
+        "p90": 190000.0,
+        "lowest_advertised": 80000.0,
+        "highest_advertised": 214000.0
+      }
+    ]
+  }
+}

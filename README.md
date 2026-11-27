@@ -11,6 +11,8 @@ DataPulse ingests and normalizes two historical sources of U.S. tech and data jo
 
 The 2023 cohort includes 1,600 Connecticut and 7,959 NYC observations. SQL appears in 113,929 and Python in 106,066 of its postings. The published search process shapes these counts. The 2026 snapshot includes 9,990 comparable advertised USD midpoints, with a median of $184,500 in this salary-rich sample.
 
+The dashboard shows bundled aggregate snapshots when started without a database. The local setup below enables row-level exploration and salary prediction.
+
 ## Quick start
 
 Run the full PostgreSQL, dbt, API and dashboard stack. Docker Compose downloads about 225 MiB of pinned data on the first run and preserves it in local Docker volumes. The services bind to loopback.
@@ -123,7 +125,7 @@ make validate
 make sql
 ```
 
-For a hosted deployment, start from the Docker image, provision PostgreSQL and run the ingestion, dbt and training setup as jobs. Check data rights and set service authentication before extending access outside the local machine. No hosted instance is configured.
+For a hosted deployment, start from the Docker image, provision PostgreSQL and run the ingestion, dbt and training setup as jobs. Check data rights and set service authentication before extending access outside the local machine. The dashboard falls back to the bundled aggregate snapshots when no datastore is configured.
 
 Both datasets omit full descriptions and verified company size. Seniority usually reflects title evidence. Provider tags are mention signals. There is no scheduled live collection, and the Zalize cross-section cannot support monthly hiring trends. The 2023 counts reflect observed posting dates and changes in collection coverage.
 
