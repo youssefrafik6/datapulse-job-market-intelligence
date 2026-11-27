@@ -11,7 +11,11 @@ DataPulse ingests and normalizes two historical sources of U.S. tech and data jo
 
 The 2023 cohort includes 1,600 Connecticut and 7,959 NYC observations. SQL appears in 113,929 and Python in 106,066 of its postings. The published search process shapes these counts. The 2026 snapshot includes 9,990 comparable advertised USD midpoints, with a median of $184,500 in this salary-rich sample.
 
-The dashboard shows bundled aggregate snapshots when started without a database. The local setup below enables row-level exploration and salary prediction.
+## Live aggregate demo
+
+Switch between the 2023 Luke Barousse cohort and the August 2026 DataForge cohort to explore posting counts, skills, geography, work arrangements, and advertised pay coverage. The hosted demo uses bundled summaries and opens without a database.
+
+![Live DataPulse dashboard showing the dataset switcher, posting counts, top skills, and state totals](screenshots/live-aggregate-demo.png)
 
 ## Quick start
 
@@ -38,9 +42,11 @@ make dashboard
 
 Run `make api` in another terminal with the environment active. For standalone 2023 analytics, run `make history`, then launch `DATAPULSE_DB_FILE=data/processed/luke.duckdb make dashboard`. The source-specific snapshots are separate in DuckDB and coexist as selectable cohorts in PostgreSQL.
 
-## Dashboard
+## Full local dashboard
 
-![DataPulse executive overview from the running application](screenshots/executive-overview.png)
+The following screenshots show the 11-page dashboard connected to DuckDB or PostgreSQL. The local setup enables cohort filters and the row-level explorer. Training the salary model enables the prediction form.
+
+![Executive overview of the full local DataPulse dashboard](screenshots/executive-overview.png)
 
 - **Executive Overview and Salary Intelligence** show cohort metrics, geography, remote signals and distributions for comparable advertised pay.
 - **Skills Demand, Entry-Level Career Intelligence and Skill Network** compare skill mentions, early-career signals, role-specific pairs and graph communities.
