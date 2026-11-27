@@ -2,6 +2,8 @@
 
 DataPulse ingests and normalizes two historical sources of U.S. tech and data job postings. The dashboard and API support analysis by role, skill, geography, experience, work arrangement, and advertised pay.
 
+[Source code](https://github.com/youssefrafik6/datapulse-job-market-intelligence) · [Architecture](#architecture) · [Data sources](#data-quality-and-source-rights)
+
 | Verified snapshot | U.S. postings retained | Best use |
 | --- | ---: | --- |
 | Luke Barousse · 2023 | **204,273** | Dated posting patterns, role and skill mix, Connecticut and NYC comparisons |
@@ -124,3 +126,7 @@ make sql
 For a hosted deployment, start from the Docker image, provision PostgreSQL and run the ingestion, dbt and training setup as jobs. Check data rights and set service authentication before extending access outside the local machine. No hosted instance is configured.
 
 Both datasets omit full descriptions and verified company size. Seniority usually reflects title evidence. Provider tags are mention signals. There is no scheduled live collection, and the Zalize cross-section cannot support monthly hiring trends. The 2023 counts reflect observed posting dates and changes in collection coverage.
+
+## Author
+
+Youssef Rafik
