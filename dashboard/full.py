@@ -1,5 +1,7 @@
 """Interactive DataPulse dashboard backed by parameterized analytics queries."""
 from dataclasses import replace
+from pathlib import Path
+from runpy import run_path
 
 import networkx as nx
 import pandas as pd
@@ -11,6 +13,10 @@ from datapulse.analytics import Analytics, Filters
 from datapulse.modeling import ARTIFACT, load, predict
 from datapulse.rules import EXPERIENCES, REMOTE, ROLES, SKILL_ALIASES, STATES
 from datapulse.store import DB_FILE, database_url, query
+
+if not database_url() and not DB_FILE.is_file():
+    run_path(str(Path(__file__).resolve().parents[1] / "demo" / "app.py"), run_name="__main__")
+    st.stop()
 
 st.set_page_config(page_title="DataPulse | U.S. Job Market Intelligence", page_icon="📊", layout="wide")
 st.markdown("""<style>
@@ -90,9 +96,6 @@ st.sidebar.title("DataPulse")
 st.sidebar.caption("U.S. JOB MARKET INTELLIGENCE")
 page = st.sidebar.radio("Pages", PAGES, label_visibility="collapsed")
 st.title("DataPulse" if page == PAGES[0] else page)
-if not database_url() and not DB_FILE.exists():
-    st.info("Build a local snapshot with `make demo`, or configure the PostgreSQL connection.")
-    st.stop()
 
 sources = query("select source, revision, url, license from data_sources order by source")
 if sources.empty:

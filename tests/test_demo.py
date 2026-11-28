@@ -1,15 +1,17 @@
 from pathlib import Path
 
+import pytest
 from streamlit.testing.v1 import AppTest
 
 
-def test_aggregate_demo_keeps_cohorts_separate(monkeypatch, tmp_path):
+@pytest.mark.parametrize("entrypoint", ["app.py", "full.py"])
+def test_aggregate_demo_keeps_cohorts_separate(monkeypatch, tmp_path, entrypoint):
     from datapulse import store
 
     monkeypatch.delenv("DATABASE_URL", raising=False)
     monkeypatch.setattr(store, "DB_FILE", tmp_path / "missing.duckdb")
-    path = Path(__file__).resolve().parents[1] / "dashboard" / "app.py"
-    app = AppTest.from_file(str(path)).run()
+    path = Path(__file__).resolve().parents[1] / "dashboard" / entrypoint
+    app = AppTest.from_file(str(path), default_timeout=30).run()
     assert not app.exception
     assert app.metric[0].value == "204,273"
     assert app.metric[2].value == "0.0%"
