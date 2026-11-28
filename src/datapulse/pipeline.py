@@ -56,13 +56,13 @@ def identity(*parts):
     return hashlib.sha256(json.dumps(parts, ensure_ascii=False).encode()).hexdigest()
 
 
-def archive_input(path, key):
+def archive_input(path, key, raw=RAW):
     """Keep an immutable local copy of an externally supplied input."""
-    if path.resolve().is_relative_to(RAW.resolve()):
+    if path.resolve().is_relative_to(raw.resolve()):
         return path
     from datapulse.sources import checksum
 
-    dest = RAW / key / checksum(path) / path.name
+    dest = raw / key / checksum(path) / path.name
     dest.parent.mkdir(parents=True, exist_ok=True)
     if not dest.exists():
         with TemporaryDirectory(dir=dest.parent) as directory:
@@ -217,17 +217,18 @@ def transfer_postgres(connection, url, metadata, run):
         engine.dispose()
 
 
-def build(path, key, output=DB_FILE, report_path=REPORT, postgres=None):
+def build(path, key, output=DB_FILE, report_path=REPORT, postgres=None, *,
+          raw=RAW, memory_limit="768MB", threads=4):
     """Rebuild the demo atomically. A failed run leaves the prior snapshot available."""
     source = SOURCES[key]
-    path = archive_input(path, key)
+    path = archive_input(path, key, raw)
     now = datetime.now(timezone.utc)
     counts = Counter()
     metadata = (key, source.revision, source.url, source.license, source.trend_eligible)
     output.parent.mkdir(parents=True, exist_ok=True)
     with TemporaryDirectory(dir=output.parent) as directory:
         pending = Path(directory) / "snapshot.duckdb"
-        with duckdb.connect(str(pending), config={"memory_limit": "768MB", "threads": 4}) as cx:
+        with duckdb.connect(str(pending), config={"memory_limit": memory_limit, "threads": threads}) as cx:
             for ddl in SCHEMA:
                 cx.execute(ddl)
             empty = pa.Table.from_pylist([], schema=ARROW_SCHEMA)
