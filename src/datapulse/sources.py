@@ -46,9 +46,9 @@ def checksum(path):
         return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
-def download(key):
+def download(key, *, raw=RAW):
     source = SOURCES[key]
-    destination = RAW / key / Path(source.file).name
+    destination = raw / key / Path(source.file).name
     destination.parent.mkdir(parents=True, exist_ok=True)
     if destination.exists():
         if source.sha256 and checksum(destination) != source.sha256:

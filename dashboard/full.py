@@ -1,7 +1,6 @@
 """Interactive DataPulse dashboard backed by parameterized analytics queries."""
+import logging
 from dataclasses import replace
-from pathlib import Path
-from runpy import run_path
 
 import networkx as nx
 import pandas as pd
@@ -10,13 +9,14 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from datapulse.analytics import Analytics, Filters
+from datapulse.hosted import salary_model, snapshot
 from datapulse.modeling import ARTIFACT, load, predict
 from datapulse.rules import EXPERIENCES, REMOTE, ROLES, SKILL_ALIASES, STATES
+from datapulse.sources import SOURCES
 from datapulse.store import DB_FILE, database_url, query
 
-if not database_url() and not DB_FILE.is_file():
-    run_path(str(Path(__file__).resolve().parents[1] / "demo" / "app.py"), run_name="__main__")
-    st.stop()
+hosted = not database_url() and not DB_FILE.is_file()
+log = logging.getLogger(__name__)
 
 st.set_page_config(page_title="DataPulse | U.S. Job Market Intelligence", page_icon="📊", layout="wide")
 st.markdown("""<style>
@@ -97,13 +97,31 @@ st.sidebar.caption("U.S. JOB MARKET INTELLIGENCE")
 page = st.sidebar.radio("Pages", PAGES, label_visibility="collapsed")
 st.title("DataPulse" if page == PAGES[0] else page)
 
-sources = query("select source, revision, url, license from data_sources order by source")
+source_sql = "select source, revision, url, license from data_sources order by source"
+if hosted:
+    sources = pd.DataFrame(
+        [{"source": key, "revision": item.revision, "url": item.url, "license": item.license}
+         for key, item in SOURCES.items()]
+    )
+else:
+    sources = query(source_sql)
 if sources.empty:
     st.info("Ingest a source to start exploring.")
     st.stop()
 source_names = {"luke": "Luke Barousse · 2023", "zalize": "Zalize · Aug 2026 sample"}
 ordered_sources = sorted(sources.source.tolist(), reverse=True)
 source = st.sidebar.selectbox("Dataset", ordered_sources, format_func=source_names.get)
+database = None
+if hosted:
+    try:
+        with st.spinner(f"Preparing {source_names[source]} from the published dataset…"):
+            database, _ = snapshot(source)
+    except Exception:
+        log.exception("Could not prepare the hosted %s snapshot", source)
+        st.error("This dataset could not load. Retry or choose another dataset in the sidebar.")
+        if st.button("Retry loading dataset"):
+            st.rerun()
+        st.stop()
 with st.sidebar.expander("Cohort filters", expanded=False):
     role = choice(st, "Role", [*ROLES, "Ambiguous", "Other Technology"])
     experience = choice(st, "Experience", EXPERIENCES)
@@ -117,7 +135,7 @@ with st.sidebar.expander("Cohort filters", expanded=False):
         st.stop()
 filters = Filters(source=source, role=role, experience=experience, state=state, remote=remote,
                   start=dates[0] if dates else None, end=dates[1] if len(dates) == 2 else None)
-cohort = Analytics(filters)
+cohort = Analytics(filters, database)
 st.caption(f"{source_names[source]}  ·  Historical observations  ·  U.S. subset")
 if source == "zalize":
     st.caption("Source: DataForge (data.zalize.com) · [Zalize dataset and attribution](https://data.zalize.com/datasets/tech-job-postings-salary-dataset) · CC BY-NC 4.0")
@@ -208,8 +226,8 @@ elif page == PAGES[3]:
                                                    "Massachusetts", "Remote U.S.", "Nationwide"])
     region_state = {"Connecticut": "CT", "New York State": "NY", "Massachusetts": "MA"}
     national_filters = replace(filters, state=None)
-    national = Analytics(national_filters)
-    regional = Analytics(replace(national_filters, state=region_state.get(region), region=region))
+    national = Analytics(national_filters, database)
+    regional = Analytics(replace(national_filters, state=region_state.get(region), region=region), database)
     comparison = pd.concat([national.summary().assign(region="Nationwide"), regional.summary().assign(region=region)])
     table(comparison[["region", "postings", "companies", "remote_jobs", "salary_jobs"]].drop_duplicates())
     st.caption("Regional comparisons use the selected source and other cohort filters. Regional definitions may overlap.")
@@ -227,7 +245,7 @@ elif page == PAGES[4]:
              "separate group flagged by junior, associate, internship or entry-level title cues. "
              "Both built-in sources lack full descriptions, so their results are title signals.")
     selected = choice(st, "Career path", ROLES)
-    early = Analytics(replace(filters, role=selected or filters.role, early=True))
+    early = Analytics(replace(filters, role=selected or filters.role, early=True), database)
     left, right = st.columns(2)
     with left:
         show_skill_bars(early)
@@ -257,27 +275,38 @@ elif page == PAGES[5]:
 elif page == PAGES[6]:
     st.write("Estimate an advertised annual USD midpoint from the role, experience signal, state and work arrangement. "
              "Company size and skill inputs are excluded from this baseline.")
-    if not ARTIFACT.exists():
-        st.info("Run `python scripts/train.py` after ingesting Zalize to enable predictions.")
-    else:
+    if hosted:
+        try:
+            with st.spinner("Preparing the advertised-salary model…"):
+                bundle = salary_model()
+        except Exception:
+            log.exception("Could not prepare the hosted salary model")
+            st.error("The salary model could not load. Retry to prepare it again.")
+            if st.button("Retry loading salary model"):
+                st.rerun()
+            st.stop()
+    elif ARTIFACT.exists():
         bundle = load()
-        with st.form("salary"):
-            columns = st.columns(4)
-            features = {field: column.selectbox(field.title(), values)
-                        for column, (field, values) in zip(columns, bundle["options"].items(), strict=True)}
-            submitted = st.form_submit_button("Estimate salary", type="primary")
-        report = bundle["report"]
-        if submitted:
-            prediction = predict(bundle, features)
-            st.metric("Predicted advertised midpoint", f"${prediction['prediction_usd']:,}")
-            st.write(f"Estimated interval ${prediction['lower_usd']:,}–${prediction['upper_usd']:,}")
-        st.caption(f"{report['selected']}  ·  {report['test']['sample']:,} held-out postings  ·  "
-                   f"Empirical interval coverage {report['test_interval_coverage']:.1%}. "
-                   "The salary-rich snapshot has limited generalizability.")
-        table(pd.DataFrame([report["test"], report["test_median_baseline"]],
-                           index=[report["selected"], "Median baseline"]).reset_index(names="Model").round(3))
-        st.subheader("Predictive features")
-        table(pd.Series(report["validation_permutation_mae_increase"], name="Validation MAE increase").round(2))
+    else:
+        st.info("Run `python scripts/train.py` after ingesting Zalize to enable predictions.")
+        st.stop()
+    with st.form("salary"):
+        columns = st.columns(4)
+        features = {field: column.selectbox(field.title(), values)
+                    for column, (field, values) in zip(columns, bundle["options"].items(), strict=True)}
+        submitted = st.form_submit_button("Estimate salary", type="primary")
+    report = bundle["report"]
+    if submitted:
+        prediction = predict(bundle, features)
+        st.metric("Predicted advertised midpoint", f"${prediction['prediction_usd']:,}")
+        st.write(f"Estimated interval ${prediction['lower_usd']:,}–${prediction['upper_usd']:,}")
+    st.caption(f"{report['selected']}  ·  {report['test']['sample']:,} held-out postings  ·  "
+               f"Empirical interval coverage {report['test_interval_coverage']:.1%}. "
+               "The salary-rich snapshot has limited generalizability.")
+    table(pd.DataFrame([report["test"], report["test_median_baseline"]],
+                       index=[report["selected"], "Median baseline"]).reset_index(names="Model").round(3))
+    st.subheader("Predictive features")
+    table(pd.Series(report["validation_permutation_mae_increase"], name="Validation MAE increase").round(2))
 elif page == PAGES[7]:
     support = st.slider("Minimum joint mentions", 2, 100, 15)
     frame = cohort.pairs(70, support)
@@ -314,7 +343,7 @@ elif page == PAGES[8]:
     floor = middle.number_input("Minimum normalized salary (USD)", min_value=0, value=0, step=5000)
     page_number = right.number_input("Page", min_value=1, max_value=5000, value=1)
     explorer = Analytics(replace(filters, title=title, company=company, location=location, skill=skill,
-                                 salary_floor=floor or None))
+                                 salary_floor=floor or None), database)
     table(explorer.jobs(100, (page_number - 1) * 100).drop(columns="job_id"))
     st.caption("Up to 100 historical postings per page.")
 elif page == PAGES[9]:
@@ -324,7 +353,7 @@ elif page == PAGES[9]:
     table(sources)
     st.subheader("Ingestion runs and data quality")
     runs = query("""select source, started_at, finished_at, status, report
-                    from ingestion_runs order by started_at desc limit 20""")
+                    from ingestion_runs order by started_at desc limit 20""", path=database)
     table(runs.drop(columns="report"))
     selected = runs[runs.source == source]
     if not selected.empty:

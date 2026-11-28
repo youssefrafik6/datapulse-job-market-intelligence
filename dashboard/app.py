@@ -3,4 +3,8 @@
 from pathlib import Path
 from runpy import run_path
 
-run_path(str(Path(__file__).resolve().with_name("full.py")), run_name="__main__")
+from datapulse.store import DB_FILE, database_url
+
+root = Path(__file__).resolve().parents[1]
+entrypoint = "dashboard/full.py" if database_url() or DB_FILE.is_file() else "demo/app.py"
+run_path(str(root / entrypoint), run_name="__main__")

@@ -2,7 +2,7 @@
 
 DataPulse ingests and normalizes two historical sources of U.S. tech and data job postings. The dashboard and API support analysis by role, skill, geography, experience, work arrangement, and advertised pay.
 
-[Live aggregate demo](https://datapulse-job-market-intelligence-ck3jjtkhhz3g7f5fhkuq26.streamlit.app/) · [Source code](https://github.com/youssefrafik6/datapulse-job-market-intelligence) · [Architecture](#architecture) · [Data sources](#data-quality-and-source-rights)
+[Full interactive dashboard](https://datapulse-job-market-intelligence-xyaxya2ytstqb39euduvyr.streamlit.app/) · [Live aggregate demo](https://datapulse-job-market-intelligence-ck3jjtkhhz3g7f5fhkuq26.streamlit.app/) · [Source code](https://github.com/youssefrafik6/datapulse-job-market-intelligence) · [Architecture](#architecture) · [Data sources](#data-quality-and-source-rights)
 
 | Verified snapshot | U.S. postings retained | Best use |
 | --- | ---: | --- |
@@ -11,7 +11,11 @@ DataPulse ingests and normalizes two historical sources of U.S. tech and data jo
 
 The 2023 cohort includes 1,600 Connecticut and 7,959 NYC observations. SQL appears in 113,929 and Python in 106,066 of its postings. The published search process shapes these counts. The 2026 snapshot includes 9,990 comparable advertised USD midpoints, with a median of $184,500 in this salary-rich sample.
 
-## Live aggregate demo
+## Live dashboards
+
+The full Streamlit dashboard opens all 11 views with cohort filters, posting search, skill networks, and salary estimation. On a fresh server it prepares the selected dataset from the pinned publisher file. The first switch to the larger 2023 dataset takes longer. Select the 2023 cohort for hiring trends and use Salary Prediction for the model trained on advertised pay in the DataForge cohort.
+
+### Aggregate demo
 
 Switch between the 2023 Luke Barousse cohort and the August 2026 DataForge cohort to explore posting counts, skills, geography, work arrangements, and advertised pay coverage. The hosted demo uses bundled summaries and opens without a database.
 
